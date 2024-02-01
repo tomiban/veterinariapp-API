@@ -21,6 +21,7 @@ builder
 
 builder.Services.AddScoped<IMascotaRepository, MascotaRepository>();
 builder.Services.AddScoped<IVacunaRepository, VacunaRepository>();
+builder.Services.AddScoped<IDosisRepository, DosisRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

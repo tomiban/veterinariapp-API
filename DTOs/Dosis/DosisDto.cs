@@ -8,7 +8,7 @@ namespace api.DTOs.Dosis
     public class DosisDto
     {
         public int Id { get; set; }
-        public int NumeroDosis { get; set; }
         public DateTime FechaAplicacion { get; set; }
+        public DateTime FechaSiguienteAplicacion { get; set; }
     }
 }

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using api.DTOs.Dosis;
 using api.Models;
 
-
 namespace api.Mappers
 {
     public static class DosisMapper
@@ -14,9 +13,18 @@ namespace api.Mappers
         {
             return new DosisDto
             {
-                Id= dosis.Id,
-                NumeroDosis = dosis.NumeroDosis,
-                FechaAplicacion = dosis.FechaAplicacion
+                Id = dosis.Id,
+                FechaAplicacion = dosis.FechaAplicacion,
+                FechaSiguienteAplicacion = dosis.FechaSiguienteAplicacion
+            };
+        }
+
+        public static Dosis FromDtoToDosis(this CreateDosisDto dosisDto)
+        {
+            return new Dosis
+            {
+                FechaAplicacion = dosisDto.FechaAplicacion,
+                FechaSiguienteAplicacion = dosisDto.FechaProximaAplicacion,
             };
         }
     }

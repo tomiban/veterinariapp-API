@@ -254,3 +254,4 @@ C:\Users\Tomás Banchio\Dev\angular\abm-mascotas\api\bin\Debug\net8.0\runtimes\w
 C:\Users\Tomás Banchio\Dev\angular\abm-mascotas\api\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\Tomás Banchio\Dev\angular\abm-mascotas\api\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\Tomás Banchio\Dev\angular\abm-mascotas\api\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+C:\Users\Tomás Banchio\Dev\angular\abm-mascotas\api\obj\Debug\net8.0\api.sourcelink.json

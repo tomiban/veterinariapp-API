@@ -11,6 +11,7 @@ namespace api.DTOs.Vacunas
         public int Id { get; set; }
         public string Nombre { get; set; } = String.Empty;
         public bool Completada { get; set; }
+        public int CantidadDosis { get; set; }
         public List<DosisDto> Dosificaciones { get; set; } = [];
     }
 }

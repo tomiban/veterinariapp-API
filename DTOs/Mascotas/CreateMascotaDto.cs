@@ -12,6 +12,9 @@ namespace api.DTOs.Mascotas
         [StringLength(50, ErrorMessage = "La longitud máxima del nombre es 50 caracteres.")]
         public string Nombre { get; set; } = String.Empty;
 
+        [StringLength(50, ErrorMessage = "La longitud máxima de la especie es 50 caracteres.")]
+        public string? Especie { get; set; }
+
         [Required(ErrorMessage = "La raza es obligatoria.")]
         [StringLength(50, ErrorMessage = "La longitud máxima de la raza es 50 caracteres.")]
         public string Raza { get; set; } = String.Empty;

@@ -15,6 +15,7 @@ namespace api.Mappers
             {
                 Id = mascota.Id,
                 Nombre = mascota.Nombre,
+                Especie = mascota.Especie,
                 Edad = mascota.Edad,
                 Color = mascota.Color,
                 Peso = mascota.Peso,
@@ -28,6 +29,7 @@ namespace api.Mappers
             return new Mascota
             {
                 Nombre = mascotaDto.Nombre,
+                Especie = mascotaDto.Especie,
                 Edad = mascotaDto.Edad,
                 Color = mascotaDto.Color,
                 Peso = mascotaDto.Peso,

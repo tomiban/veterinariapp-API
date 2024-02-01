@@ -16,13 +16,19 @@ namespace api.Mappers
                 Id = vacuna.Id,
                 Nombre = vacuna.Nombre,
                 Completada = vacuna.Completada,
+                CantidadDosis = vacuna.CantidadDosis,
                 Dosificaciones = vacuna.Dosificaciones.Select(d => d.ToDosisDto()).ToList()
             };
         }
 
-        public static Vacuna FromDtoToVacuna (this CreateVacunaDto vacunaDto)
+        public static Vacuna FromDtoToVacuna(this CreateVacunaDto vacunaDto)
         {
-            return new Vacuna { Nombre = vacunaDto.Nombre, Completada = vacunaDto.Completada };
+            return new Vacuna
+            {
+                Nombre = vacunaDto.Nombre,
+                Completada = vacunaDto.Completada,
+                CantidadDosis = vacunaDto.CantidadDosis
+            };
         }
     }
 }

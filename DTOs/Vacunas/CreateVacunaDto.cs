@@ -14,5 +14,9 @@ namespace api.DTOs.Vacunas
 
         [Required(ErrorMessage = "El campo 'Completada' es obligatorio.")]
         public bool Completada { get; set; }
+
+        [Required(ErrorMessage = "El campo cantidad de dosis es obligatorio.")]
+        [Range(1, 99, ErrorMessage = "La cantidad de dosis aplicables debe estar entre 1 y 99.")]
+        public int CantidadDosis { get; set; }
     }
 }

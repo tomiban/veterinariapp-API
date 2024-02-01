@@ -10,6 +10,7 @@ namespace api.DTOs.Mascotas
     {
         public int Id { get; set; }
         public string Nombre { get; set; } = String.Empty;
+        public string? Especie { get; set; }
         public string Raza { get; set; } = String.Empty;
         public string Color { get; set; } = String.Empty;
         public int Edad { get; set; }
