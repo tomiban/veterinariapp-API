@@ -48,6 +48,12 @@ namespace api.Repository
             return dosis;
         }
 
+        public async Task<Dosis?> GetDosisById(int id)
+        {
+            var dosis = await _context.Dosis.FirstOrDefaultAsync(d => d.Id == id);
+            return dosis;
+        }
+
         public Task<Dosis?> UpdateDosis(int id, int DosisId, CreateDosisDto dosisDto)
         {
             throw new NotImplementedException();

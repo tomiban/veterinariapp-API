@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
-    [Route("api/vacunas/dosis")]
+    [Route("api/mascotas/{mascotaId}/vacunas/{vacunaId}/dosis")]
     public class DosisController : ControllerBase
     {
         private readonly IDosisRepository _dosisRepository;
@@ -18,21 +18,6 @@ namespace api.Controllers
         public DosisController(IDosisRepository dosisRepository)
         {
             _dosisRepository = dosisRepository;
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAll([FromRoute] int vacunaId)
-        {
-            try
-            {
-                var dosis = await _dosisRepository.GetAllDosis(vacunaId);
-                var vacunasDto = dosis.Select(d => d.ToDosisDto());
-                return Ok(vacunasDto);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
         }
 
         [HttpPost]
@@ -51,20 +36,9 @@ namespace api.Controllers
 
                 var dosisModel = dosisDto.FromDtoToDosis();
 
-                var dosis = await _dosisRepository.CreateDosis(mascotaId, vacunaId, dosisModel);
+                await _dosisRepository.CreateDosis(mascotaId, vacunaId, dosisModel);
 
-                if (dosis == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(dosis);
-
-                /*   return CreatedAtAction(
-                      nameof(GetById),
-                      new { mascotaId = mascotaId, id = dosisModel.Id },
-                      dosisModel.TodosisDto()
-                  ); */
+                return Ok(dosisModel.ToDosisDto());
             }
             catch (Exception e)
             {
