@@ -3,6 +3,7 @@ using api.Interfaces;
 using api.MascotaRepository;
 using api.Repository;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Converters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder
     .Services.AddControllers()
     .AddNewtonsoftJson(options =>
     {
+        options.SerializerSettings.Converters.Add(new StringEnumConverter());
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft
             .Json
             .ReferenceLoopHandling

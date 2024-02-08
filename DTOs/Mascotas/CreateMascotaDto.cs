@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,6 +19,11 @@ namespace api.DTOs.Mascotas
         [Required(ErrorMessage = "La raza es obligatoria.")]
         [StringLength(50, ErrorMessage = "La longitud máxima de la raza es 50 caracteres.")]
         public string Raza { get; set; } = String.Empty;
+
+        [Required(ErrorMessage = "El sexo (Macho / Hembra) es obligatorio.")]
+        [Column(TypeName = "nvarchar(10)")] // Especifica el tipo de columna en la base de datos
+        [EnumDataType(typeof(Sexo))] // Indica a Entity Framework cómo debe tratar este enum
+        public Sexo Sexo { get; set; }
 
         [Required(ErrorMessage = "El color es obligatorio.")]
         [StringLength(50, ErrorMessage = "La longitud máxima del color es 50 caracteres.")]

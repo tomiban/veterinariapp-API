@@ -9,7 +9,7 @@ using api.Mappers;
 using api.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace api.Controllers
 {

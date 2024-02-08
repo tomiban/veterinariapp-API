@@ -16,6 +16,7 @@ namespace api.Mappers
                 Id = mascota.Id,
                 Nombre = mascota.Nombre,
                 Especie = mascota.Especie,
+                Sexo = mascota.Sexo,
                 Edad = mascota.Edad,
                 Color = mascota.Color,
                 Peso = mascota.Peso,
@@ -30,6 +31,7 @@ namespace api.Mappers
             {
                 Nombre = mascotaDto.Nombre,
                 Especie = mascotaDto.Especie,
+                Sexo = mascotaDto.Sexo,
                 Edad = mascotaDto.Edad,
                 Color = mascotaDto.Color,
                 Peso = mascotaDto.Peso,
