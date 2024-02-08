@@ -35,7 +35,7 @@ namespace api.MascotaRepository
             {
                 return null;
             }
-            
+
             _context.Remove(mascotaModel);
             await _context.SaveChangesAsync();
             return mascotaModel;
@@ -52,7 +52,9 @@ namespace api.MascotaRepository
 
         public async Task<Mascota?> GetById(int id)
         {
-            var mascota = await _context.Mascotas.Include(m => m.Vacunas).ThenInclude(d => d.Dosificaciones).FirstOrDefaultAsync(m => m.Id == id);
+            var mascota = await _context
+                .Mascotas.Include(d => d.Dueño)
+                .FirstOrDefaultAsync(m => m.Id == id);
             return mascota;
         }
 

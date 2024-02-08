@@ -4,7 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using api.DTOs.Dueño;
 using api.DTOs.Vacunas;
+using api.Models;
 
 namespace api.DTOs.Mascotas
 {
@@ -21,6 +23,6 @@ namespace api.DTOs.Mascotas
         public string Color { get; set; } = String.Empty;
         public int Edad { get; set; }
         public float Peso { get; set; }
-        public List<VacunaDto> Vacunas { get; set; } = [];
+        public DueñoDto? Dueño { get; set; }
     }
 }

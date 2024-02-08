@@ -21,6 +21,7 @@ builder
             .Ignore;
     });
 
+builder.Services.AddScoped<IDueñoRepository, DueñoRepository>();
 builder.Services.AddScoped<IMascotaRepository, MascotaRepository>();
 builder.Services.AddScoped<IVacunaRepository, VacunaRepository>();
 builder.Services.AddScoped<IDosisRepository, DosisRepository>();

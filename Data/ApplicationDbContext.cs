@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.Data
 {
-    public class ApplicationDbContext: DbContext
+    public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
-        {
-            
-        }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options) { }
+
+        public DbSet<Dueño> Dueño { get; set; }
         public DbSet<Mascota> Mascotas { get; set; }
         public DbSet<Vacuna> Vacunas { get; set; }
         public DbSet<Dosis> Dosis { get; set; }

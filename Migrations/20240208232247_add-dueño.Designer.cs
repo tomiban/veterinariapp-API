@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Data;
 
@@ -11,9 +12,11 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240208232247_add-dueño")]
+    partial class adddueño
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,7 +46,7 @@ namespace api.Migrations
 
                     b.HasIndex("VacunaId");
 
-                    b.ToTable("Dosis", (string)null);
+                    b.ToTable("Dosis");
                 });
 
             modelBuilder.Entity("api.Models.Dueño", b =>
@@ -73,7 +76,7 @@ namespace api.Migrations
                         .IsUnique()
                         .HasFilter("[MascotaId] IS NOT NULL");
 
-                    b.ToTable("Dueño", (string)null);
+                    b.ToTable("Dueño");
                 });
 
             modelBuilder.Entity("api.Models.Mascota", b =>
@@ -114,7 +117,7 @@ namespace api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Mascotas", (string)null);
+                    b.ToTable("Mascotas");
                 });
 
             modelBuilder.Entity("api.Models.Vacuna", b =>
@@ -142,7 +145,7 @@ namespace api.Migrations
 
                     b.HasIndex("MascotaId");
 
-                    b.ToTable("Vacunas", (string)null);
+                    b.ToTable("Vacunas");
                 });
 
             modelBuilder.Entity("api.Models.Dosis", b =>

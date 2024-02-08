@@ -17,7 +17,7 @@ namespace api.Models
         // Relación uno a muchos con Dosis
         public Mascota? Mascota { get; set; }
 
-        public List<Dosis> Dosificaciones { get; set; } = new List<Dosis>();
+        public List<Dosis> Dosificaciones { get; set; } = [];
 
         // Puedes agregar otras propiedades relacionadas con la vacuna
     }

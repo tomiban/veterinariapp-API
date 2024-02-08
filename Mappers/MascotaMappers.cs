@@ -21,7 +21,7 @@ namespace api.Mappers
                 Color = mascota.Color,
                 Peso = mascota.Peso,
                 Raza = mascota.Raza,
-                Vacunas = mascota.Vacunas.Select(v => v.ToVacunaDto()).ToList(),
+                
             };
         }
 
