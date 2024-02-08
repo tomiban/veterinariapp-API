@@ -69,6 +69,7 @@ namespace api.MascotaRepository
 
             mascotaModel.Nombre = mascotaDto.Nombre;
             mascotaModel.Especie = mascotaDto.Especie;
+            mascotaModel.Sexo = mascotaDto.Sexo;
             mascotaModel.Edad = mascotaDto.Edad;
             mascotaModel.Color = mascotaDto.Color;
             mascotaModel.Raza = mascotaDto.Raza;
