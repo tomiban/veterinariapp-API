@@ -15,7 +15,7 @@ namespace api.Mappers
             {
                 Id = dosis.Id,
                 FechaAplicacion = dosis.FechaAplicacion,
-                FechaSiguienteAplicacion = dosis.FechaSiguienteAplicacion
+                FechaProximaAplicacion = dosis.FechaProximaAplicacion
             };
         }
 
@@ -24,7 +24,7 @@ namespace api.Mappers
             return new Dosis
             {
                 FechaAplicacion = dosisDto.FechaAplicacion,
-                FechaSiguienteAplicacion = dosisDto.FechaProximaAplicacion,
+                FechaProximaAplicacion = dosisDto.FechaProximaAplicacion,
             };
         }
     }

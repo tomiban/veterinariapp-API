@@ -9,6 +9,6 @@ namespace api.DTOs.Dosis
     {
         public int Id { get; set; }
         public DateTime FechaAplicacion { get; set; }
-        public DateTime FechaSiguienteAplicacion { get; set; }
+        public DateTime FechaProximaAplicacion { get; set; }
     }
 }

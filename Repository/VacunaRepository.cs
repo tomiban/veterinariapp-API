@@ -77,12 +77,12 @@ namespace api.Repository
         public async Task<Vacuna?> UpdateVacunaByMascota(
             int mascotaId,
             int id,
-            CreateVacunaDto vacunaDto
+            UpdateVacunaDto vacunaDto
         )
         {
             var vacunaModel = await _context
-                .Vacunas.Where(v => v.MascotaId == mascotaId && v.Id == id)
-                .SingleOrDefaultAsync();
+                .Vacunas.Include(v => v.Dosificaciones)
+                .FirstOrDefaultAsync(v => v.MascotaId == mascotaId && v.Id == id);
 
             if (vacunaModel == null)
             {
@@ -91,10 +91,61 @@ namespace api.Repository
 
             vacunaModel.Nombre = vacunaDto.Nombre;
             vacunaModel.Completada = vacunaDto.Completada;
+            vacunaModel.CantidadDosis = vacunaDto.CantidadDosis;
+
+            // Actualiza las dosis
+            if (vacunaDto.Dosificaciones != null)
+            {
+                foreach (var dosisDto in vacunaDto.Dosificaciones)
+                {
+                    if (dosisDto.Id == 0)
+                    {
+                        // Nueva dosis, crea una nueva instancia
+                        var nuevaDosis = new Dosis
+                        {
+                            FechaAplicacion = dosisDto.FechaAplicacion,
+                            FechaProximaAplicacion = dosisDto.FechaProximaAplicacion,
+                            VacunaId = vacunaModel.Id
+                        };
+                        _context.Dosis.Add(nuevaDosis); // Agrega la nueva dosis al contexto
+                    }
+                    else
+                    {
+                        // Actualiza una dosis existente
+                        var dosisExistente = await _context.Dosis.FirstOrDefaultAsync(d =>
+                            d.Id == dosisDto.Id && d.VacunaId == vacunaModel.Id
+                        );
+
+                        if (dosisExistente != null)
+                        {
+                            dosisExistente.FechaAplicacion = dosisDto.FechaAplicacion;
+                            dosisExistente.FechaProximaAplicacion = dosisDto.FechaProximaAplicacion;
+                            _context.Dosis.Update(dosisExistente); // Marca la dosis como modificada en el contexto
+                        }
+                    }
+                }
+            }
 
             await _context.SaveChangesAsync();
 
             return vacunaModel;
+        }
+
+        public async Task<bool> UpdateVacunaCompletada(int vacunaId)
+        {
+            var vacunaModel = await _context.Vacunas.FindAsync(vacunaId);
+
+            if (vacunaModel == null)
+                return false;
+
+            var dosisAplicadas = await _context.Dosis.CountAsync(d => d.VacunaId == vacunaId);
+
+            // Actualizar el estado de completado si la cantidad de dosis aplicadas es igual a la cantidad de dosis
+            vacunaModel.Completada = dosisAplicadas >= vacunaModel.CantidadDosis;
+
+            await _context.SaveChangesAsync();
+
+            return vacunaModel.Completada;
         }
     }
 }

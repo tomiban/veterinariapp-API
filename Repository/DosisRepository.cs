@@ -32,13 +32,37 @@ namespace api.Repository
 
             dosis.VacunaId = vacunaId;
             _context.Dosis.Add(dosis);
+
+          
             await _context.SaveChangesAsync();
+
+            await _vacunaRepository.UpdateVacunaCompletada(vacunaId);
+
             return dosis;
         }
 
-        public Task<Dosis?> DeleteDos(int mascotaId, int id)
+        public async Task<Dosis?> DeleteDosis(int mascotaId, int vacunaId, int id)
         {
-            throw new NotImplementedException();
+            var isMascota = await _context.Mascotas.FindAsync(mascotaId);
+
+            if (isMascota == null)
+                return null;
+
+            var dosis = await _context
+                .Dosis.Where(d => d.VacunaId == vacunaId && d.Id == id)
+                .SingleOrDefaultAsync();
+
+            if (dosis == null)
+            {
+                return null;
+            }
+
+            _context.Dosis.Remove(dosis);
+
+
+            await _context.SaveChangesAsync();
+             await _vacunaRepository.UpdateVacunaCompletada(vacunaId);
+            return dosis;
         }
 
         public async Task<List<Dosis>> GetAllDosis(int vacunaId)

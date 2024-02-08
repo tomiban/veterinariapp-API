@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using api.DTOs.Dosis;
 using api.Interfaces;
 using api.Mappers;
+using api.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,10 +36,32 @@ namespace api.Controllers
                 }
 
                 var dosisModel = dosisDto.FromDtoToDosis();
+                var isCreated = await _dosisRepository.CreateDosis(mascotaId, vacunaId, dosisModel);
 
-                await _dosisRepository.CreateDosis(mascotaId, vacunaId, dosisModel);
+                if (isCreated == null)
+                    return BadRequest();
 
                 return Ok(dosisModel.ToDosisDto());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(
+            [FromRoute] int mascotaId,
+            [FromRoute] int vacunaId,
+            [FromRoute] int id
+        )
+        {
+            try
+            {
+                var dosis = await _dosisRepository.DeleteDosis(mascotaId, vacunaId, id);
+                if (dosis == null)
+                    return NotFound();
+                return NoContent();
             }
             catch (Exception e)
             {

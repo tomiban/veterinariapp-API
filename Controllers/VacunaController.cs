@@ -86,7 +86,7 @@ namespace api.Controllers
         public async Task<IActionResult> Update(
             [FromRoute] int mascotaId,
             [FromRoute] int id,
-            [FromBody] CreateVacunaDto vacunaDto
+            [FromBody] UpdateVacunaDto vacunaDto
         )
         {
             try
