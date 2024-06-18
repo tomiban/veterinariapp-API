@@ -43,7 +43,7 @@ namespace api.Migrations
 
                     b.HasIndex("VacunaId");
 
-                    b.ToTable("Dosis", (string)null);
+                    b.ToTable("Dosis");
                 });
 
             modelBuilder.Entity("api.Models.Dueño", b =>
@@ -73,7 +73,7 @@ namespace api.Migrations
                         .IsUnique()
                         .HasFilter("[MascotaId] IS NOT NULL");
 
-                    b.ToTable("Dueño", (string)null);
+                    b.ToTable("Dueño");
                 });
 
             modelBuilder.Entity("api.Models.Mascota", b =>
@@ -114,7 +114,7 @@ namespace api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Mascotas", (string)null);
+                    b.ToTable("Mascotas");
                 });
 
             modelBuilder.Entity("api.Models.Vacuna", b =>
@@ -142,7 +142,7 @@ namespace api.Migrations
 
                     b.HasIndex("MascotaId");
 
-                    b.ToTable("Vacunas", (string)null);
+                    b.ToTable("Vacunas");
                 });
 
             modelBuilder.Entity("api.Models.Dosis", b =>
