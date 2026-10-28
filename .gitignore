@@ -485,3 +485,5 @@ $RECYCLE.BIN/
 
 # Build output
 out/
+.vercel
+.env*
