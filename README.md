@@ -4,10 +4,22 @@ API REST en .NET 8 para la gestión de una veterinaria: mascotas, dueños, vacun
 aplicadas. El cliente web vive en [veterinariapp-FE](https://github.com/tomiban/veterinariapp-FE)
 (Angular 17 + Material UI).
 
+## Demo
+
+| | |
+| --- | --- |
+| Front (Angular) | https://veterinariapp-fe.vercel.app |
+| API (contenedor en Vercel) | https://veterinariapp-api.vercel.app |
+| Swagger | https://veterinariapp-api.vercel.app/swagger/index.html |
+
+La API corre como **contenedor OCI en Vercel** (Container Runtime) contra una base
+PostgreSQL en **Neon**. La primera petición puede tardar unos segundos: el contenedor y la
+base se suspenden por inactividad.
+
 ## Stack
 
 - .NET 8 / ASP.NET Core
-- Entity Framework Core sobre SQL Server, con migraciones versionadas
+- Entity Framework Core sobre PostgreSQL (Npgsql), con migraciones versionadas
 - Patrón repositorio (`Interfaces/`, `Repository/`)
 - DTOs y mappers dedicados (`DTOs/`, `Mappers/`)
 - Swagger / OpenAPI para documentación interactiva
@@ -50,7 +62,7 @@ Las vacunas y las dosis cuelgan de la mascota que las recibe.
 
 ## Puesta en marcha
 
-Requisitos: SDK de .NET 8 y una instancia de SQL Server accesible.
+Requisitos: SDK de .NET 8 y una instancia de PostgreSQL accesible.
 
 1. Configurá la cadena de conexión en `appsettings.json`, sección
    `ConnectionStrings:DbConnection`.
@@ -62,11 +74,15 @@ Requisitos: SDK de .NET 8 y una instancia de SQL Server accesible.
 
 ```bash
 docker build -t veterinariapp-api .
-docker run --rm -p 8080:8080 veterinariapp-api
+docker run --rm -p 3000:3000 -e PORT=3000 \
+  -e ConnectionStrings__DbConnection="Host=…;Database=…;Username=…;Password=…" \
+  veterinariapp-api
 ```
 
-El contenedor expone `8080` y `8081`; la cadena de conexión se pasa por configuración o
-variables de entorno.
+El contenedor escucha en `$PORT` (por defecto `3000`) y es el mismo que se despliega en
+Vercel con `vercel deploy --prod`: el proyecto usa el preset `container`, que construye el
+`Dockerfile` y publica la imagen en el registry de Vercel. La cadena de conexión se pasa por
+la variable de entorno `ConnectionStrings__DbConnection`.
 
 ## Licencia
 
