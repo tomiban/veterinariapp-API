@@ -11,5 +11,6 @@ namespace api.DTOs.Dueño
         public string Nombre { get; set; } = String.Empty;
         public string? Domicilio { get; set; }
         public string? Telefono { get; set; }
+        public int CantidadMascotas { get; set; }
     }
 }

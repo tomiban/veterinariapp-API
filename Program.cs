@@ -48,6 +48,13 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// Aplica las migraciones pendientes al arrancar: el contenedor de Vercel no tiene otro paso
+// de deploy donde correr `dotnet ef database update` contra Neon.
+using (var scope = app.Services.CreateScope())
+{
+    scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
+}
+
 // Configure the HTTP request pipeline.
 // Documentación pública: es una API de demo, el Swagger es parte de lo que se muestra.
 app.UseSwagger();

@@ -28,6 +28,14 @@ namespace api.Data
                 .HasConversion<string>()
                 .HasMaxLength(10);
 
+            // Si se borra el dueño, sus mascotas quedan sin dueño asignado.
+            modelBuilder
+                .Entity<Mascota>()
+                .HasOne(mascota => mascota.Dueño)
+                .WithMany(dueño => dueño.Mascotas)
+                .HasForeignKey(mascota => mascota.DueñoId)
+                .OnDelete(DeleteBehavior.SetNull);
+
             // PostgreSQL solo acepta UTC en timestamp with time zone: normalizamos lo que
             // llega del cliente (que puede venir sin zona) al escribir y al leer.
             modelBuilder

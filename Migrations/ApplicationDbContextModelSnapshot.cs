@@ -57,9 +57,6 @@ namespace api.Migrations
                     b.Property<string>("Domicilio")
                         .HasColumnType("text");
 
-                    b.Property<int?>("MascotaId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("text");
@@ -68,9 +65,6 @@ namespace api.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MascotaId")
-                        .IsUnique();
 
                     b.ToTable("Dueño");
                 });
@@ -89,6 +83,9 @@ namespace api.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("DueñoId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Edad")
                         .HasColumnType("integer");
@@ -109,9 +106,12 @@ namespace api.Migrations
 
                     b.Property<string>("Sexo")
                         .IsRequired()
+                        .HasMaxLength(10)
                         .HasColumnType("varchar(10)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DueñoId");
 
                     b.ToTable("Mascotas");
                 });
@@ -155,13 +155,14 @@ namespace api.Migrations
                     b.Navigation("Vacuna");
                 });
 
-            modelBuilder.Entity("api.Models.Dueño", b =>
+            modelBuilder.Entity("api.Models.Mascota", b =>
                 {
-                    b.HasOne("api.Models.Mascota", "Mascota")
-                        .WithOne("Dueño")
-                        .HasForeignKey("api.Models.Dueño", "MascotaId");
+                    b.HasOne("api.Models.Dueño", "Dueño")
+                        .WithMany("Mascotas")
+                        .HasForeignKey("DueñoId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
-                    b.Navigation("Mascota");
+                    b.Navigation("Dueño");
                 });
 
             modelBuilder.Entity("api.Models.Vacuna", b =>
@@ -175,10 +176,13 @@ namespace api.Migrations
                     b.Navigation("Mascota");
                 });
 
+            modelBuilder.Entity("api.Models.Dueño", b =>
+                {
+                    b.Navigation("Mascotas");
+                });
+
             modelBuilder.Entity("api.Models.Mascota", b =>
                 {
-                    b.Navigation("Dueño");
-
                     b.Navigation("Vacunas");
                 });
 

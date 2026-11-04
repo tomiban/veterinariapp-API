@@ -23,6 +23,7 @@ namespace api.DTOs.Mascotas
         public string Color { get; set; } = String.Empty;
         public int Edad { get; set; }
         public float Peso { get; set; }
+        public int? DueñoId { get; set; }
         public DueñoDto? Dueño { get; set; }
     }
 }

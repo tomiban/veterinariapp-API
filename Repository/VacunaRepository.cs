@@ -32,6 +32,8 @@ namespace api.Repository
             }
 
             vacuna.MascotaId = mascotaId;
+            // Recién creada no tiene dosis aplicadas: el estado lo calcula la API, no el cliente.
+            vacuna.Completada = false;
             // Agrega la nueva vacuna al contexto
             _context.Vacunas.Add(vacuna);
 
@@ -127,6 +129,8 @@ namespace api.Repository
             }
 
             await _context.SaveChangesAsync();
+            // Si cambió la cantidad de dosis, el estado de completada se recalcula.
+            await UpdateVacunaCompletada(vacunaModel.Id);
 
             return vacunaModel;
         }

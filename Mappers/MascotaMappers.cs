@@ -21,7 +21,8 @@ namespace api.Mappers
                 Color = mascota.Color,
                 Peso = mascota.Peso,
                 Raza = mascota.Raza,
-                
+                DueñoId = mascota.DueñoId,
+                Dueño = mascota.Dueño?.ToDueñoDto(),
             };
         }
 
@@ -36,6 +37,7 @@ namespace api.Mappers
                 Color = mascotaDto.Color,
                 Peso = mascotaDto.Peso,
                 Raza = mascotaDto.Raza,
+                DueñoId = mascotaDto.DueñoId,
             };
         }
     }

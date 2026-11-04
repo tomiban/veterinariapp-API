@@ -11,7 +11,8 @@ namespace api.Models
         public string Nombre { get; set; } = String.Empty;
         public string? Domicilio { get; set; } = String.Empty;
         public string? Telefono { get; set; } = String.Empty;
-        public int? MascotaId { get; set; }
-        public virtual Mascota? Mascota { get; set; }
+
+        // Un dueño puede traer varias mascotas a la veterinaria.
+        public List<Mascota> Mascotas { get; set; } = new List<Mascota>();
     }
 }

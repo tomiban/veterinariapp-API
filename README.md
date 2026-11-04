@@ -41,7 +41,9 @@ base se suspenden por inactividad.
 
 ## Recursos
 
-Las vacunas y las dosis cuelgan de la mascota que las recibe.
+Las vacunas y las dosis cuelgan de la mascota que las recibe. Un dueño puede tener varias
+mascotas: se asigna con `dueñoId` al crear o editar la mascota. El estado `completada` de
+una vacuna lo calcula la API a partir de las dosis aplicadas.
 
 | Método | Ruta | Descripción |
 | --- | --- | --- |
@@ -50,8 +52,11 @@ Las vacunas y las dosis cuelgan de la mascota que las recibe.
 | `POST` | `/api/mascotas` | Crea una mascota |
 | `PUT` | `/api/mascotas/{id}` | Actualiza una mascota |
 | `DELETE` | `/api/mascotas/{id}` | Elimina una mascota |
-| `GET` | `/api/mascotas/{mascotaId}/dueño/{id}` | Obtiene el dueño de la mascota |
-| `POST` | `/api/mascotas/{mascotaId}/dueño` | Asigna el dueño de la mascota |
+| `GET` | `/api/dueños?busqueda=` | Lista los dueños, con la cantidad de mascotas; filtra por nombre o teléfono |
+| `GET` | `/api/dueños/{id}` | Obtiene un dueño con sus mascotas |
+| `POST` | `/api/dueños` | Crea un dueño |
+| `PUT` | `/api/dueños/{id}` | Actualiza un dueño |
+| `DELETE` | `/api/dueños/{id}` | Elimina un dueño; sus mascotas quedan sin dueño |
 | `GET` | `/api/mascotas/{mascotaId}/vacunas` | Lista las vacunas de la mascota |
 | `GET` | `/api/mascotas/{mascotaId}/vacunas/{id}` | Obtiene una vacuna |
 | `POST` | `/api/mascotas/{mascotaId}/vacunas` | Registra una vacuna |
@@ -66,7 +71,8 @@ Requisitos: SDK de .NET 8 y una instancia de PostgreSQL accesible.
 
 1. Configurá la cadena de conexión en `appsettings.json`, sección
    `ConnectionStrings:DbConnection`.
-2. Aplicá las migraciones: `dotnet ef database update`.
+2. Las migraciones se aplican solas al arrancar la API (también podés correr
+   `dotnet ef database update`).
 3. Levantá la API: `dotnet run`.
 4. Abrí Swagger en `/swagger` para explorar los endpoints.
 
