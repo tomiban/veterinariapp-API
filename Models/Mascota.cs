@@ -22,6 +22,7 @@ namespace api.Models
         public int Edad { get; set; }
         public float Peso { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public int? DueñoId { get; set; }
         public virtual Dueño? Dueño { get; set; }
 
         public List<Vacuna> Vacunas { get; set; } = new List<Vacuna>();

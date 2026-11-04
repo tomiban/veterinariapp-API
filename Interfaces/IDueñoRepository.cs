@@ -9,8 +9,11 @@ namespace api.Interfaces
 {
     public interface IDueñoRepository
     {
-        Task<Dueño?> GetById(int mascotaId, int id);
-        Task<Dueño?> Create(Dueño dueño);
-        Task<Dueño?> Update(int id, CreateDueñoDto createDueñoDto);
+        Task<List<Dueño>> GetAll(string? busqueda);
+        Task<Dueño?> GetById(int id);
+        Task<bool> Exists(int id);
+        Task<Dueño> Create(Dueño dueño);
+        Task<Dueño?> Update(int id, CreateDueñoDto dueñoDto);
+        Task<Dueño?> Delete(int id);
     }
 }

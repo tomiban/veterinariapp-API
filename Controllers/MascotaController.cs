@@ -17,10 +17,15 @@ namespace api.Controllers
     public class MascotaController : ControllerBase
     {
         private readonly IMascotaRepository _mascotaRepo;
+        private readonly IDueñoRepository _dueñoRepo;
 
-        public MascotaController(IMascotaRepository mascotaRepository)
+        public MascotaController(
+            IMascotaRepository mascotaRepository,
+            IDueñoRepository dueñoRepository
+        )
         {
             _mascotaRepo = mascotaRepository;
+            _dueñoRepo = dueñoRepository;
         }
 
         [HttpGet]
@@ -65,6 +70,10 @@ namespace api.Controllers
                 {
                     return BadRequest(ModelState);
                 }
+                if (mascotaDto.DueñoId is int dueñoId && !await _dueñoRepo.Exists(dueñoId))
+                {
+                    return BadRequest("El dueño indicado no existe.");
+                }
                 var mascotaModel = mascotaDto.FromDtoToMascota();
                 await _mascotaRepo.Create(mascotaModel);
                 return CreatedAtAction(
@@ -90,6 +99,10 @@ namespace api.Controllers
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
+                }
+                if (mascotaDto.DueñoId is int dueñoId && !await _dueñoRepo.Exists(dueñoId))
+                {
+                    return BadRequest("El dueño indicado no existe.");
                 }
                 var mascota = await _mascotaRepo.Update(id, mascotaDto);
                 if (mascota == null)

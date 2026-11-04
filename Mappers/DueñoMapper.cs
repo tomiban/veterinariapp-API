@@ -16,7 +16,21 @@ namespace api.Mappers
                 Id = dueño.Id,
                 Nombre = dueño.Nombre,
                 Domicilio = dueño.Domicilio,
-                Telefono = dueño.Telefono
+                Telefono = dueño.Telefono,
+                CantidadMascotas = dueño.Mascotas.Count
+            };
+        }
+
+        public static DueñoDetalleDto ToDueñoDetalleDto(this Dueño dueño)
+        {
+            return new DueñoDetalleDto
+            {
+                Id = dueño.Id,
+                Nombre = dueño.Nombre,
+                Domicilio = dueño.Domicilio,
+                Telefono = dueño.Telefono,
+                CantidadMascotas = dueño.Mascotas.Count,
+                Mascotas = dueño.Mascotas.OrderBy(m => m.Nombre).Select(m => m.ToMascotaDto()).ToList()
             };
         }
 
@@ -24,9 +38,9 @@ namespace api.Mappers
         {
             return new Dueño
             {
-                Nombre = dueñoDto.Nombre,
-                Telefono = dueñoDto.Telefono,
-                Domicilio = dueñoDto.Domicilio
+                Nombre = dueñoDto.Nombre.Trim(),
+                Telefono = dueñoDto.Telefono?.Trim(),
+                Domicilio = dueñoDto.Domicilio?.Trim()
             };
         }
     }

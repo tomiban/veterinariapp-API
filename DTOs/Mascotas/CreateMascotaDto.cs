@@ -36,5 +36,8 @@ namespace api.DTOs.Mascotas
         [Required(ErrorMessage = "El peso es obligatorio.")]
         [Range(0.1, 1000, ErrorMessage = "El peso debe estar entre 0.1 y 1000.")]
         public float Peso { get; set; }
+
+        // Opcional: la mascota puede registrarse sin dueño y asignarse después.
+        public int? DueñoId { get; set; }
     }
 }

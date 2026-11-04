@@ -24,6 +24,7 @@ namespace api.MascotaRepository
         {
             await _context.AddAsync(mascotaModel);
             await _context.SaveChangesAsync();
+            await _context.Entry(mascotaModel).Reference(m => m.Dueño).LoadAsync();
             return mascotaModel;
         }
 
@@ -44,8 +45,10 @@ namespace api.MascotaRepository
         public async Task<List<Mascota>> GetAll()
         {
             var mascotas = await _context
-                .Mascotas.Include(m => m.Vacunas)
+                .Mascotas.Include(m => m.Dueño)
+                .Include(m => m.Vacunas)
                 .ThenInclude(v => v.Dosificaciones)
+                .OrderBy(m => m.Nombre)
                 .ToListAsync();
             return mascotas;
         }
@@ -76,8 +79,10 @@ namespace api.MascotaRepository
             mascotaModel.Color = mascotaDto.Color;
             mascotaModel.Raza = mascotaDto.Raza;
             mascotaModel.Peso = mascotaDto.Peso;
+            mascotaModel.DueñoId = mascotaDto.DueñoId;
 
             await _context.SaveChangesAsync();
+            await _context.Entry(mascotaModel).Reference(m => m.Dueño).LoadAsync();
 
             return mascotaModel;
         }
